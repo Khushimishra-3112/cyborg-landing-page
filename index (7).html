@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAFT — Where tissue ends, we begin.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0e11;
+    --void-2:#12161b;
+    --bone:#e9e3d6;
+    --bone-dim:#a8a297;
+    --coolant:#4fd8c4;
+    --rust:#c1553b;
+    --steel:#5b6470;
+    --line: rgba(233,227,214,0.12);
+    --serif: 'Fraunces', serif;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--void);
+    color:var(--bone);
+    font-family:var(--sans);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;}
+
+  ::selection{background:var(--coolant);color:var(--void);}
+
+  :focus-visible{
+    outline:2px solid var(--coolant);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,14,17,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-size:15px;
+    letter-spacing:0.08em;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--coolant);
+    box-shadow:0 0 10px var(--coolant);
+    animation:pulse-dot 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-dot{
+    0%,100%{opacity:1;transform:scale(1);}
+    50%{opacity:0.4;transform:scale(0.75);}
+  }
+  nav ul{
+    display:flex;
+    gap:36px;
+    list-style:none;
+  }
+  nav ul li a{
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--bone-dim);
+    text-decoration:none;
+    transition:color 0.2s;
+  }
+  nav ul li a:hover{color:var(--coolant);}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:13px;
+    border:1px solid var(--coolant);
+    color:var(--coolant);
+    padding:9px 18px;
+    border-radius:2px;
+    text-decoration:none;
+    transition:background 0.2s, color 0.2s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--coolant);color:var(--void);}
+  .nav-links{display:flex;align-items:center;gap:36px;}
+  @media (max-width:760px){
+    .nav-links ul{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:110px 0 90px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin-bottom:28px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:28px;height:1px;
+    background:var(--rust);
+  }
+  h1{
+    font-size:clamp(42px, 7vw, 92px);
+    line-height:1.03;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    max-width:920px;
+  }
+  h1 .morph{
+    display:inline-block;
+  }
+  /* letters shift from serif (human) to mono (machine) across the phrase */
+  h1 .m0{font-family:var(--serif); font-style:italic; font-weight:400;}
+  h1 .m1{font-family:var(--serif); font-weight:500;}
+  h1 .m2{font-family:var(--serif); font-weight:600; letter-spacing:0.01em;}
+  h1 .m3{font-family:var(--mono); font-weight:500; letter-spacing:-0.02em; color:var(--coolant); font-style:normal;}
+
+  .hero-sub{
+    margin-top:32px;
+    max-width:520px;
+    font-size:17px;
+    color:var(--bone-dim);
+  }
+  .hero-actions{
+    margin-top:44px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn-primary, .btn-secondary{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-decoration:none;
+    padding:14px 26px;
+    border-radius:2px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--coolant);
+    color:var(--void);
+    font-weight:600;
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 24px rgba(79,216,196,0.25);
+  }
+  .btn-secondary{
+    border:1px solid var(--line);
+    color:var(--bone);
+    transition:border-color 0.2s;
+  }
+  .btn-secondary:hover{border-color:var(--bone-dim);}
+
+  /* ---------- VITALS SIGNATURE LINE ---------- */
+  .vitals{
+    margin-top:80px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:22px 0;
+    overflow:hidden;
+    position:relative;
+  }
+  .vitals svg{
+    display:block;
+    width:100%;
+    height:64px;
+  }
+  .vitals-path{
+    fill:none;
+    stroke:var(--coolant);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    filter:drop-shadow(0 0 6px rgba(79,216,196,0.5));
+  }
+  .vitals-path-rust{
+    fill:none;
+    stroke:var(--rust);
+    stroke-width:1.2;
+    stroke-linecap:round;
+    stroke-dasharray:2 6;
+    opacity:0.6;
+  }
+  .vitals-label{
+    position:absolute;
+    right:32px;
+    top:50%;
+    transform:translateY(-50%);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--bone-dim);
+    letter-spacing:0.08em;
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:110px 0;}
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:40px;
+    margin-bottom:64px;
+    flex-wrap:wrap;
+  }
+  .section-label{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:var(--serif);
+    font-size:clamp(30px,4vw,44px);
+    font-weight:500;
+    max-width:560px;
+  }
+  .section-note{
+    font-size:15px;
+    color:var(--bone-dim);
+    max-width:320px;
+  }
+
+  /* ---------- MANIFESTO ---------- */
+  .manifesto{
+    border-top:1px solid var(--line);
+  }
+  .manifesto p{
+    font-family:var(--serif);
+    font-size:clamp(22px,2.6vw,32px);
+    line-height:1.5;
+    font-weight:400;
+    max-width:820px;
+    color:var(--bone);
+  }
+  .manifesto p em{
+    color:var(--coolant);
+    font-style:italic;
+  }
+
+  /* ---------- CAPABILITIES GRID ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:760px){
+    .grid{grid-template-columns:1fr;}
+  }
+  .card{
+    background:var(--void);
+    padding:44px;
+    transition:background 0.25s;
+  }
+  .card:hover{background:var(--void-2);}
+  .card .icon{
+    width:40px;height:40px;
+    margin-bottom:24px;
+    color:var(--coolant);
+  }
+  .card h3{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:500;
+    margin-bottom:12px;
+  }
+  .card p{
+    font-size:14.5px;
+    color:var(--bone-dim);
+    max-width:340px;
+  }
+
+  /* ---------- SPEC TERMINAL ---------- */
+  .terminal{
+    border:1px solid var(--line);
+    background:var(--void-2);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 18px;
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--bone-dim);
+  }
+  .terminal-bar span.tdot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--steel);
+  }
+  .terminal-body{
+    padding:8px 0;
+  }
+  .spec-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 28px;
+    font-family:var(--mono);
+    font-size:14px;
+    border-bottom:1px solid var(--line);
+  }
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row .k{color:var(--bone-dim);}
+  .spec-row .v{color:var(--coolant); font-weight:500;}
+  .spec-row .v.rust{color:var(--rust);}
+
+  /* ---------- PROCESS (real sequence, numbering earned) ---------- */
+  .process{
+    border-top:1px solid var(--line);
+  }
+  .process-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .process-item{
+    display:grid;
+    grid-template-columns:80px 1fr;
+    gap:32px;
+    padding:36px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .process-item:first-child{border-top:1px solid var(--line);}
+  .process-num{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--rust);
+    padding-top:4px;
+  }
+  .process-item h4{
+    font-family:var(--serif);
+    font-size:20px;
+    font-weight:500;
+    margin-bottom:8px;
+  }
+  .process-item p{
+    color:var(--bone-dim);
+    font-size:14.5px;
+    max-width:520px;
+  }
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta{
+    border-top:1px solid var(--line);
+    text-align:left;
+  }
+  .cta h2{max-width:640px;}
+  .cta-form{
+    margin-top:40px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    max-width:480px;
+  }
+  .cta-form input{
+    flex:1;
+    min-width:220px;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--bone);
+    padding:14px 16px;
+    font-family:var(--sans);
+    font-size:14px;
+    border-radius:2px;
+  }
+  .cta-form input::placeholder{color:var(--steel);}
+  .cta-form button{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:600;
+    background:var(--coolant);
+    color:var(--void);
+    border:none;
+    padding:0 24px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:transform 0.15s;
+  }
+  .cta-form button:hover{transform:translateY(-1px);}
+  .form-msg{
+    margin-top:14px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--coolant);
+    min-height:16px;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:40px 0;
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-row .logo{font-size:13px;}
+  .footer-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--bone-dim);
+  }
+  .footer-links a{text-decoration:none;color:inherit;transition:color 0.2s;}
+  .footer-links a:hover{color:var(--coolant);}
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .logo .dot{animation:none;}
+    .btn-primary:hover, .cta-form button:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="dot"></span>GRAFT</div>
+    <div class="nav-links">
+      <ul>
+        <li><a href="#capabilities">Augmentations</a></li>
+        <li><a href="#specs">Specifications</a></li>
+        <li><a href="#process">Process</a></li>
+      </ul>
+      <a class="nav-cta" href="#consult">Book consult</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Clinical-grade neural &amp; structural augmentation</div>
+      <h1 class="morph">
+        <span class="m0">The body</span> <span class="m1">was only</span> <span class="m2">a </span><span class="m3">draft()</span>
+      </h1>
+      <p class="hero-sub">GRAFT designs, fits, and calibrates augmentations that extend what a nervous system can do — without asking it to stop being one.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#consult">Book a consultation →</a>
+        <a class="btn-secondary" href="#capabilities">See augmentations</a>
+      </div>
+    </div>
+
+    <div class="vitals">
+      <div class="wrap" style="position:relative;">
+        <svg viewBox="0 0 1180 64" preserveAspectRatio="none">
+          <path class="vitals-path-rust" d="M0,32 L1180,32"></path>
+          <path class="vitals-path" id="vitalsLine" d="M0,32 L120,32 L140,10 L160,54 L180,32 L260,32 L280,32 L300,18 L320,46 L340,32 L420,32 L460,32 L480,4 L500,60 L520,32 L620,32 L660,32 L680,20 L700,32 L720,44 L740,32 L840,32 L880,32 L900,14 L920,32 L1020,32 L1060,32 L1080,26 L1100,38 L1120,32 L1180,32"></path>
+        </svg>
+        <div class="vitals-label">SIGNAL // HUMAN + SYNTHETIC</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto reveal">
+    <div class="wrap">
+      <p>We don't build replacements. We build <em>continuations</em> — augmentations that read your nervous system's own intent and finish the sentence it started, faster and further than tissue alone ever could.</p>
+    </div>
+  </section>
+
+  <section id="capabilities">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-label">Augmentations</div>
+          <h2>Four systems, one integration</h2>
+        </div>
+        <p class="section-note">Each augmentation is fitted individually and calibrated to your own neural signature over a two-week window.</p>
+      </div>
+
+      <div class="grid reveal">
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="7"/><path d="M20 2v11M20 27v11M2 20h11M27 20h11"/><circle cx="20" cy="20" r="17" stroke-dasharray="2 4"/></svg>
+          <h3>Neural Lace</h3>
+          <p>A mesh interface layered across the motor cortex, translating intention into signal before the thought finishes forming.</p>
+        </div>
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="12"/><circle cx="20" cy="20" r="4" fill="currentColor" stroke="none"/><path d="M6 20h4M30 20h4"/></svg>
+          <h3>Ocular Array</h3>
+          <p>Replacement optics with adjustable spectral range, low-light gain, and a heads-up telemetry layer you can switch off.</p>
+        </div>
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="28" height="28" rx="2"/><path d="M6 16h28M6 26h28M16 6v28M26 6v28"/></svg>
+          <h3>Dermal Plating</h3>
+          <p>Sub-surface panels that harden on impact and stay pliable everywhere else, worn instead of felt.</p>
+        </div>
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 4v10M20 26v10M20 14a6 6 0 100 12 6 6 0 000-12z"/><path d="M10 20a10 10 0 0120 0"/></svg>
+          <h3>Reflex Spine</h3>
+          <p>A parallel signal path along the spinal column that shortens reaction time without overriding voluntary control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="specs">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-label">Specifications</div>
+          <h2>What changes, measured</h2>
+        </div>
+        <p class="section-note">Figures are median results across the current fitting cohort, six months post-calibration.</p>
+      </div>
+
+      <div class="terminal reveal">
+        <div class="terminal-bar">
+          <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+          <span style="margin-left:8px;">graft_specsheet.log</span>
+        </div>
+        <div class="terminal-body">
+          <div class="spec-row"><span class="k">reaction_time</span><span class="v">−63%</span></div>
+          <div class="spec-row"><span class="k">visual_field</span><span class="v">+140°</span></div>
+          <div class="spec-row"><span class="k">grip_calibration_precision</span><span class="v">±0.2mm</span></div>
+          <div class="spec-row"><span class="k">signal_latency</span><span class="v">4ms</span></div>
+          <div class="spec-row"><span class="k">rejection_incidents</span><span class="v rust">0.3%</span></div>
+          <div class="spec-row"><span class="k">battery_interval</span><span class="v">11 days</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-label">Process</div>
+          <h2>Four appointments, in order</h2>
+        </div>
+        <p class="section-note">This sequence doesn't compress — each stage depends on data from the one before it.</p>
+      </div>
+
+      <div class="process-list reveal">
+        <div class="process-item">
+          <div class="process-num">01</div>
+          <div><h4>Consultation</h4><p>We map what you want extended and rule out what shouldn't be.</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">02</div>
+          <div><h4>Mapping</h4><p>Forty-eight hours of passive signal capture to build your neural baseline.</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">03</div>
+          <div><h4>Integration</h4><p>Fitting is done in a single procedure, under local sedation where possible.</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">04</div>
+          <div><h4>Calibration</h4><p>Two weeks of tuning sessions until the augmentation stops feeling installed and starts feeling used.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="consult" class="cta">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-label">Get started</div>
+        <h2>Tell us what you're extending, and why</h2>
+        <form class="cta-form" id="consultForm">
+          <input type="email" id="consultEmail" placeholder="you@domain.com" required aria-label="Email address">
+          <button type="submit">Request consult</button>
+        </form>
+        <div class="form-msg" id="formMsg"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="logo"><span class="dot"></span>GRAFT</div>
+    <ul class="footer-links">
+      <li><a href="#capabilities">Augmentations</a></li>
+      <li><a href="#specs">Specifications</a></li>
+      <li><a href="#process">Process</a></li>
+    </ul>
+    <div style="font-family:var(--mono); font-size:11.5px; color:var(--steel);">© 2026 GRAFT LABS</div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // fake but pleasant form response
+  const form = document.getElementById('consultForm');
+  const msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('consultEmail').value;
+    msg.textContent = 'Request received — ' + email + ' will hear from a fitting specialist within 48 hours.';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
